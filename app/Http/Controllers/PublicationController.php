@@ -38,22 +38,21 @@ class PublicationController extends Controller
     {
         $request->validate([
             'titulo' => 'required|min:5|max:250',
-            'descripcion' => 'required',
+            'caraceristicas' => 'required',
             'puntuacion' => 'required',
         ]);
 
         $publication = new Publication();
         $publication->titulo = $request->titulo;
-        $publication->descripcion = $request->descripcion;
+        if($imagen = $request->file('imagen')) {
+            $rutaGuardarImg = 'Imagen/';
+            $imagenPublicacion = date('YmdHis'). "." . $imagen->getClientOriginalExtension();
+            $imagen->move($rutaGuardarImg, $imagenPublicacion);
+            $publication['imagen'] = "$imagenPublicacion";
+        };
+        $publication->caraceristicas = $request->caraceristicas;
         $publication->puntuacion = $request->puntuacion;
         $publication->save();
-
-
-        /*$publication = Publication::create([
-            'titulo' => $request->titulo,
-            'descripcion' => $request->descripcion,
-            'puntuacion' => $request->puntuacion,
-        ]);*/
 
         return redirect('publication');
     }
@@ -91,17 +90,21 @@ class PublicationController extends Controller
     {
         $request->validate([
             'titulo' => 'required|min:5|max:250',
-            'descripcion' => 'required',
+            'caraceristicas' => 'required',
             'puntuacion' => 'required',
         ]);
 
         $publication->titulo = $request->titulo;
-        $publication->descripcion = $request->descripcion;
+        if($imagen = $request->file('imagen')) {
+            $rutaGuardarImg = 'Imagen/';
+            $imagenPublicacion = date('YmdHis'). "." . $imagen->getClientOriginalExtension();
+            $imagen->move($rutaGuardarImg, $imagenPublicacion);
+            $publication['imagen'] = "$imagenPublicacion";
+        };
+        $publication->caraceristicas = $request->caraceristicas;
         $publication->puntuacion = $request->puntuacion;
         $publication->save();
 
-      /*  Publication::where('id', $publication->id)
-            ->update($request->execpt(['_method', '_token'])); */
 
         return redirect('/publication');
     }

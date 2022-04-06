@@ -1,38 +1,42 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('show') }}
-        </h2>
-    </x-slot>
+<x-principal-layout>
+    <!-- Vista de publicacion -->
+    <div class="container mb-5">
+        <h1>Análisis:</h1>
+        <hr>
+        <div class="row">
+            <div class="col-12 col-md-9">
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <h1>Detalles publicacion</h1>
+                <!-- Vista de Parte principal de articulo (Titulo,Fecha e Imagen) -->
+                <div class="row mb-5">
+                    <div class="col-9">
+                        <h3>{{ $publication -> titulo }}</h3>
+                        <hr>
+                        <p class="lead">Fecha: {{ $publication -> created_at }}</p>
 
-                <table>
-                    <tr>
-                        <th>ID</th>
-                        <th>Titulo</th>
-                        <th>Imagen</th>
-                        <th>Caracteristicas</th>
-                        <th>Puntuacion</th>
-                        <th>Fecha y Hora</th>
-                    </tr>
-            
-                    <tr>
-                        <td>{{ $publication -> id }}</td>
-                        <td>{{ $publication -> titulo }}</td>
-                        <td>
-                            <img src="/imagen/{{ $publication -> imagen }}" width="60%" alt="">
-                        </td>
-                        <td>{{ $publication -> caraceristicas }}</td>
-                        <td>{{ $publication -> puntuacion }}</td>
-                        <td>{{ $publication -> created_at }}</td>
-                    </tr>
-            
-                </table>   
+                        <div class="row">
+                            <div class="col-6">
+                                <img src="/imagen/{{ $publication -> imagen }}"  class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fin de vista de Parte principal de articulo (Titulo,Fecha e Imagen) -->
+
+                <!-- Vista secundaria de articulo (Caracteristicas,Puntuacion) -->
+                <div class="row">
+                    <div class="col-9">
+                        <hr>
+                        <h3>Características:</h3>
+                        <hr>
+
+                        <p>{{ $publication -> caraceristicas }}</p>
+                    </div>
+                </div>
+                <!-- Fin de vista secundaria de articulo (Caracteristicas,Puntuacion) -->
+
             </div>
         </div>
+        <hr>
     </div>
-</x-app-layout>
+    <!-- Fin de vista de publicacion -->
+</x-principal-layout>

@@ -1,53 +1,46 @@
 <x-principal-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('index') }}
-        </h2>
-    </x-slot>
+    {{-- Recuperacion de publicaciones realizadas --}}
+    <div class="container mb-5">
+    <h3>Lista de publicaciones realizadas</h3>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <h1>Lista de publicaciones realizadas</h1>
+    <a class="btn btn-primary mb-3" href="/publication/create" role="button" >Nuevo Artículo</a>
 
-                <a type="button" href="/publication/create" >Crear nueva publicación</a>
-            
-                {{-- Recuperacion de publicaciones realizadas por el editor --}}
-                <table class="table-dixed w-full">
-                    <tr>
-                        <th class="border px-4 py-2">ID</th>
-                        <th class="border px-4 py-2">Titulo</th>
-                        <th class="border px-4 py-2">Imagen</th>
-                        <th class="border px-4 py-2">Puntuacion</th>
-                        <th class="border px-4 py-2">Fecha y Hora</th>
-                    </tr>
+        <table class="table table-bordered border-primary">
+            <tr>
+                <th>ID</th>
+                <th>Titulo</th>
+                <th>Imagen</th>
+                <th>Puntuacion</th>
+                <th>Fecha y Hora</th>
+                <th>Acciones</th>
+            </tr>
+                    
+            @foreach ($publications as $publication)
+            <tr>
+                <td>{{ $publication -> id }}</td>
+                <td>{{ $publication -> titulo }}</td>
+                <td align="center">
+                    <img src="/imagen/{{ $publication -> imagen }}" width="80px" height="80px">
+                </td>
+                <td>{{ $publication -> puntuacion }}</td>
+                <td>{{ $publication -> created_at }}</td>
                 
-                    @foreach ($publications as $publication)
-                    <tr class="bg-gray-800 text-white">
-                        <td>{{ $publication -> id }}</td>
-                        <td>{{ $publication -> titulo }}</td>
-                        <td>
-                            <img src="/imagen/{{ $publication -> imagen }}" width="60%" alt="">
-                        </td>
-                        <td>{{ $publication -> puntuacion }}</td>
-                        <td>{{ $publication -> created_at }}</td>
-            
-                    {{--Ver detalles de publicacion, editar la publicacion y eliminar publicacion--}}
-                        <td>
-                            <a href="publication/{{ $publication->id }}">Ver publicacion</a><br>
-                
-                            <a href="publication/{{ $publication->id }}/edit">Editar</a><br>
-                
-                            <form action="/publication/{{ $publication->id }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <input type="submit" value="Borrar">
-                            </form>
-                        </td>
-                    </tr>   
-                    @endforeach
-                </table>   
-            </div>
-        </div>
+                {{--Ver detalles de publicacion, editar la publicacion y eliminar publicacion--}}
+                <td>
+                    {{-- Ver detalles de publicacion --}}
+                    <a href="publication/{{ $publication->id }}" class="btn btn-primary mb-3" role="button">Ver</a>
+                    {{-- Editar publicacion--}}
+                    <a href="publication/{{ $publication->id }}/edit" class="btn btn-info mb-3" role="button">Editar</a>
+                    {{-- Borrar publicacion--}}
+                    <form action="/publication/{{ $publication->id }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                        <button type="submit" class="btn btn-danger mb-3" type="button">Borrar</button>
+                    </form>
+                </td>
+            </tr>   
+            @endforeach
+        </table>
     </div>
+    {{-- Fin de Recuperacion de publicaciones realizadas --}}
 </x-principal-layout>

@@ -120,4 +120,5 @@ class PublicationController extends Controller
         $publication->delete();
         return redirect('publication');
     }
+
 }

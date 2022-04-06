@@ -1,74 +1,62 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('create') }}
-        </h2>
-    </x-slot>
+<x-principal-layout>
+    {{-- Formulario de creacion de nuevo articulo --}}
+    <div class="container mb-5">
+        <h3>Crear nuevo Artículo</h3>
+        <hr>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <h1>Crear nueva publicación</h1>
+        {{-- Validar campos introducidos --}}
+        @if ($errors->any())
+            <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+            </div>
+        @endif
 
-                {{-- Validar campos introducidos --}}
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                    </div>
-                @endif
-
-                {{--Crear nueva publicacion --}}
-                <form action="/publication" method="POST" enctype="multipart/form-data"> 
-                @csrf
-                    {{-- Agregar titulo--}}
-                    <label for="titulo">Titulo de Publicacion</label><br>
-                    <input type="text" name="titulo" value={{ isset($publication) ? $publication->titulo : old('titulo') }}><br>
+        {{--Crear nueva publicacion --}}
+        <form action="/publication" method="POST" enctype="multipart/form-data"> 
+        @csrf
+            <div class="form-group">
+                {{-- Agregar titulo--}}
+                <div class="mb-3">
+                    <label for="titulo" class="form-label">Título del Artículo</label>
+                    <input type="text" class="form-control" name="titulo" value={{ isset($publication) ? $publication->titulo : old('titulo') }}><br>
                     @error('titulo')
                         <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror<br>
+                    @enderror
+                </div>
 
-                    {{-- Agregar imagen --}}
-                    <div class="grid grid-cols-1 mt-5 mx-7">
-                    <label class="uppercas md:text-sm text-xs text-black-500 font-semibold mb-1">Subir Imagen</label>
-                        <div class="flex items-center justify-center w-full">
-                            <label class="flex flex-col border-4 border-dashed w-full h-32 hover:bg-gray-100 hover:border-purple-300 group">
-                                    <div class="flex flex-col items-center justify-center pt-7">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-gray-400 group-hover:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                                        </svg>
-                                        <p class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">Seleccionar imagen</p>
-                                    </div>
-                                <input type="file"  name="imagen" class="hidden">
-                             </label>
-                        </div>
-                    </div> 
+                {{-- Agregar imagen --}}
+                <div class="mb-3">
+                    <label for="formFile" name="imagen" class="form-label">Seleccionar Imagen del Artículo</label>
+                    <input class="form-control" name="imagen" type="file" id="formFile">
+                </div>
 
-            <!--        <label for="imagen">Subir imagen</label><br>
-                    <div class="custom-file">
-                        <input type="file" name="imagen" class="custom-file-input" id="customFileLang" lang="es">
-                        <label class="custom-file-label" for="customFileLang">Seleccionar imagen</label>
-                    </div> -->
-
-                    {{-- Agregar caracteristicas --}}
-                    <label for="caraceristicas">Caracteristicas</label><br>
-                    <textarea name="caraceristicas" id="caraceristicas" cols="30" rows="10">
+                {{-- Agregar caracteristicas --}}
+                <div class="mb-3">
+                    <label for="caraceristicas" class="form-label">Características del Artículo</label>
+                    <textarea class="form-control" name="caraceristicas" id="caraceristicas" rows="10">
                     {{ isset($publication) ? $publication->caraceristicas : old('caraceristicas') }} 
-                    </textarea><br>
+                    </textarea>
+                </div>
 
-                    {{-- Agregar puntuacion--}}
-                    <label for="puntuacion">Puntuacion</label><br>
-                    <input type="number" minlength="1" maxlength="2" min="0" max="10" name="puntuacion" value={{ isset($publication) ? $publication->puntuacion : old('puntuacion') }}><br>
+                {{-- Agregar puntuacion--}}
+                <div class="mb-3">
+                    <label for="puntuacion" class="form-label">Puntuación del Artículo</label>
+                    <input  class="form-control" type="number" minlength="1" maxlength="2" min="0" max="10" name="puntuacion" value={{ isset($publication) ? $publication->puntuacion : old('puntuacion') }}>
+                </div>
 
-                    {{-- Boton de guardado y cancelar--}}
-                    <input type="submit" value="Guardar">
-                    <a href="/publication">Cancelar</a>
-                </form>
+                {{-- Boton de guardado y cancelar--}}
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
+                    <button class="btn btn-primary me-md-2" type="submit">Guardar</button>
+                    <a class="btn btn-primary" href="/publication" role="button">Cancelar</a>
+                </div>
+
             </div>
-        </div>
+        </form>
     </div>
-</x-app-layout>
+    {{-- Fin de Formulario de creacion de nuevo articulo --}}
+</x-principal-layout>
 

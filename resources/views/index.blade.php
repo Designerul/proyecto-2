@@ -24,8 +24,6 @@
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav p-2">
               <a class="nav-link active" aria-current="page" href="/home">Inicio</a>
-              <a class="nav-link" href="/publication">Mis Publicaciones</a>
-              <a class="nav-link" href="/publication/create">Crear Artículo</a>
             </div>
 
             <div class="navbar-nav">
@@ -48,7 +46,11 @@
 
     <!-- Contenido pricipal -->
 
-    {{ $slot }}
+      <div class="container mb-5">
+        <h3>GGeek</h3>
+        <p class="lead">Tecnología y entretenimiento</p>
+        <hr>
+      </div>
 
     <!-- Fin Contenido pricipal -->
 
@@ -57,14 +59,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}" ></script>
-
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>
-     /* tinymce.init({
-        selector: '#caraceristicas', // Replace this CSS selector to match the placeholder element for TinyMCE
-        plugins: 'code table lists',
-        toolbar: 'undo redo | formatselect| bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table'
-      }); */
-    </script>
   </body>
 </html>

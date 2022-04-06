@@ -1,60 +1,63 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('edit') }}
-        </h2>
-    </x-slot>
+<x-principal-layout>
+    {{-- Formulario de edicion de articulo --}}
+    <div class="container mb-5">
+        <h3>Editar Artículo</h3>
+        <hr>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <h1>Editar publicación</h1>
+        {{-- Validar campos introducidos --}}
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
 
-                {{-- Validar campos introducidos --}}
-                @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif
-
-                {{--Crear nueva publicacion --}}
-                <form action="/publication/{{ $publication->id }}" method="POST">
-                    @method('PATCH')
-                    @csrf
-                    {{-- Editar titulo--}}
-                    <label for="titulo">Titulo de Publicacion</label><br>
-                    <input type="text" name="titulo" value={{ isset($publication) ? $publication->titulo : old('titulo') }}><br>
+        {{-- Editar publicacion --}}
+        <form action="/publication/{{ $publication->id }}" method="POST">
+            @method('PATCH')
+            @csrf
+            <div class="form-group">
+                {{-- Editar titulo--}}
+                <div class="mb-3">
+                    <label for="titulo" class="form-label">Título del Artículo</label>
+                    <input type="text" class="form-control" name="titulo" value={{ isset($publication) ? $publication->titulo : old('titulo') }}><br>
                     @error('titulo')
                         <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror<br>
+                    @enderror
+                </div>
 
-                    {{-- Editar imagen --}}
-                    <label for="imagen">Subir imagen</label><br>
-                    <div class="custom-file">
-                        <input type="file" name="imagen" class="custom-file-input" id="customFileLang" lang="es">
-                        <label class="custom-file-label" for="customFileLang">Seleccionar imagen</label>
-                    </div>
+                {{-- Editar imagen --}}
+                <div class="mb-3">
+                    <label for="formFile" name="imagen" class="form-label">Seleccionar Imagen del Artículo</label>
+                    <input class="form-control" name="imagen" type="file" id="formFile">
+                </div>
 
-                    {{-- Editar caracteristicas --}}
-                    <label for="caraceristicas">Caracteristicas</label><br>
-                    <textarea name="caraceristicas" id="caraceristicas" cols="30" rows="10">
+                {{-- Editar caracteristicas --}}
+                <div class="mb-3">
+                    <label for="caraceristicas" class="form-label">Características del Artículo</label>
+                    <textarea class="form-control" name="caraceristicas" id="caraceristicas" rows="10">
                     {{ isset($publication) ? $publication->caraceristicas : old('caraceristicas') }} 
-                    </textarea><br>
+                    </textarea>
+                </div>
 
-                    {{-- Editar puntuacion--}}
-                    <label for="puntuacion">Puntuacion</label><br>
-                    <input type="number" minlength="1" maxlength="2" min="0" max="10" name="puntuacion" value={{ isset($publication) ? $publication->puntuacion : old('puntuacion') }}><br>
+                {{-- Editar puntuacion--}}
+                <div class="mb-3">
+                    <label for="puntuacion" class="form-label">Puntuación del Artículo</label>
+                    <input  class="form-control" type="number" minlength="1" maxlength="2" min="0" max="10" name="puntuacion" value={{ isset($publication) ? $publication->puntuacion : old('puntuacion') }}>
+                </div>
 
-                    {{-- Boton de guardado y cancelar--}}
-                    <input type="submit" value="Guardar">
-                    <a href="/publication">Cancelar</a>
-                </form>
+                {{-- Boton de guardado y cancelar--}}
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
+                    <button class="btn btn-primary me-md-2" type="submit">Guardar</button>
+                    <a class="btn btn-primary" href="/publication" role="button">Cancelar</a>
+                </div>
+                
             </div>
-        </div>
+        </form>
     </div>
-</x-app-layout>
+    {{-- Fin de Formulario de edicion de articulo --}}
+</x-principal-layout>
 

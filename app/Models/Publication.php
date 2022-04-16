@@ -9,4 +9,9 @@ class Publication extends Model
 {
     use HasFactory;
     protected $fillable = ['titulo', 'imagen', 'caracteristicas', 'configuracion', 'puntuacion'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

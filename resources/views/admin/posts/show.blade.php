@@ -10,6 +10,14 @@
 
 @section('content')
 
+    {{-- Alerta de actualizacion --}}
+    @if (session('info'))
+    <div class="alert alert-success">
+        <strong>{{ session('info') }}</strong>
+    </div>
+    @endif
+    {{-- Fin de Alerta de actualizacion --}}
+
     <!-- Vista de publicacion -->
     <div class="container mb-5">
         <h1>Análisis:</h1>

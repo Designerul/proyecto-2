@@ -31,7 +31,7 @@
             {{-- Agregar titulo--}}
             <div class="mb-3">
                 <label for="titulo" class="form-label">Título del Artículo</label>
-                <input type="text" class="form-control" name="titulo" value={{ isset($publication) ? $publication->titulo : old('titulo') }}><br>
+                <textarea name="titulo" class="form-control" cols="1" rows="1">{{ isset($publication) ? $publication->titulo : old('titulo') }}</textarea>
             </div>
 
             {{-- Agregar imagen --}}
@@ -43,9 +43,7 @@
             {{-- Agregar caracteristicas --}}
             <div class="mb-3">
                 <label for="caraceristicas" class="form-label">Características del Artículo</label>
-                <textarea class="form-control" name="caraceristicas" id="caraceristicas" rows="10">
-                {{ isset($publication) ? $publication->caraceristicas : old('caraceristicas') }} 
-                </textarea>
+                <textarea class="form-control" name="caraceristicas" id="caraceristicas" rows="10">{{ isset($publication) ? $publication->caraceristicas : old('caraceristicas') }} </textarea>
             </div>
 
             {{-- Agregar puntuacion--}}

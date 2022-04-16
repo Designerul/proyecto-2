@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Publication;
 
 class User extends Authenticatable
 {
@@ -67,9 +68,13 @@ class User extends Authenticatable
         return "Administrador";
     }
 
-    
     public function adminlte_profile_url()
     {
         return 'profile/username';
+    }
+
+    public function publications()
+    {
+        return $this->hasMany(Publication::class);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Publication;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PublicationController extends Controller
 {
@@ -14,7 +15,8 @@ class PublicationController extends Controller
      */
     public function index()
     {
-        $publications = publication::all();
+        //$publications = publication::all();
+        $publications = Auth::user()->publications;
         return view('admin.posts.index', compact('publications'));
     }
 
@@ -38,12 +40,13 @@ class PublicationController extends Controller
     {
         $request->validate([
             'titulo' => 'required|min:5|max:250',
-            'image' => 'required',
+            'imagen' => 'required',
             'caraceristicas' => 'required',
             'puntuacion' => 'required',
         ]);
 
         $publication = new Publication();
+        $publication->user_id = Auth::id();
         $publication->titulo = $request->titulo;
         if($imagen = $request->file('imagen')) {
             $rutaGuardarImg = 'Imagen/';
@@ -55,7 +58,7 @@ class PublicationController extends Controller
         $publication->puntuacion = $request->puntuacion;
         $publication->save();
 
-        return redirect('/admin/publication');
+        return redirect('/admin/publication')->with('info', 'Publicacion creada');
     }
 
     /**
@@ -95,6 +98,7 @@ class PublicationController extends Controller
             'puntuacion' => 'required',
         ]);
 
+        $publication->user_id = Auth::id();
         $publication->titulo = $request->titulo;
         if($imagen = $request->file('imagen')) {
             $rutaGuardarImg = 'Imagen/';
@@ -107,7 +111,8 @@ class PublicationController extends Controller
         $publication->save();
 
 
-        return redirect('/admin/publication');
+        return redirect()->route('publication.show', $publication->id )->with('info', 'Publicacion actualizada');
+        
     }
 
     /**
@@ -119,7 +124,7 @@ class PublicationController extends Controller
     public function destroy(Publication $publication)
     {
         $publication->delete();
-        return redirect('/admin/publication');
+        return redirect('/admin/publication')->with('delete', 'Publicacion borrada');
     }
 
 }

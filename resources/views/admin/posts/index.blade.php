@@ -9,6 +9,26 @@
 @stop
 
 @section('content')
+
+    {{-- Agregar componente de posts index --}}
+   {{-- @livewire('admin.posts-index') --}}
+
+    {{-- Alerta de creacion de publicacion --}}
+    @if (session('info'))
+    <div class="alert alert-success">
+        <strong>{{ session('info') }}</strong>
+    </div>
+    @endif
+    {{-- Fin de Alerta de creacion de publicacion --}}
+
+    {{-- Alerta de borrado --}}
+    @if (session('delete'))
+    <div class="alert alert-danger">
+        <strong>{{ session('delete') }}</strong>
+    </div>
+    @endif
+    {{-- Fin de Alerta de borrado --}}
+
     {{-- Recuperacion de publicaciones realizadas --}}
     <div class="container mb-5">
 

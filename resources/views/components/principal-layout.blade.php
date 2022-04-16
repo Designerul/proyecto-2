@@ -23,22 +23,12 @@
 
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav p-2">
-              <a class="nav-link active" aria-current="page" href="/home">Inicio</a>
-              <a class="nav-link" href="/publication">Mis Publicaciones</a>
-              <a class="nav-link" href="/publication/create">Crear Artículo</a>
+              <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+           {{--   <a class="nav-link" href="/publication">Mis Publicaciones</a>
+              <a class="nav-link" href="/publication/create">Crear Artículo</a> --}}
             </div>
 
-            <div class="navbar-nav">
-              @auth
-                
-              @else
-                <a href="{{ route('login') }}" class="btn btn-outline-primary btn-sm" style="margin: 4px" role="button" aria-pressed="true">Ingresar</a>
-
-                @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="btn btn-outline-warning btn-sm" style="margin: 4px" role="button" aria-pressed="true">Registrarse</a>
-                @endif
-              @endauth
-            </div>
+            @include('parciales.login');
 
           </div>
         </div>

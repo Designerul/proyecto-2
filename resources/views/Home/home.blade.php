@@ -25,7 +25,7 @@
                             {{ Str::limit($publication -> caraceristicas,400,'(...)') }}
 
                         </p>
-                        <a href="publication/{{ $publication->id }}" class="btn btn-warning btn-sm">Leer mas..</a>
+                        <a href="{{ route('home.show', $publication) }}" class="btn btn-warning btn-sm">Leer mas..</a>
                     </div>
                     <!-- Fin de Titulo y caracteristicas del articulo limitado a 400 caracteres -->
 

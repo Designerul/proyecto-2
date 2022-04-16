@@ -15,7 +15,7 @@ class PublicationController extends Controller
     public function index()
     {
         $publications = publication::all();
-        return view('Publications.index', compact('publications'));
+        return view('admin.posts.index', compact('publications'));
     }
 
     /**
@@ -25,7 +25,7 @@ class PublicationController extends Controller
      */
     public function create()
     {
-        return view('Publications.create');
+        return view('admin.posts.create');
     }
 
     /**
@@ -38,6 +38,7 @@ class PublicationController extends Controller
     {
         $request->validate([
             'titulo' => 'required|min:5|max:250',
+            'image' => 'required',
             'caraceristicas' => 'required',
             'puntuacion' => 'required',
         ]);
@@ -54,7 +55,7 @@ class PublicationController extends Controller
         $publication->puntuacion = $request->puntuacion;
         $publication->save();
 
-        return redirect('publication');
+        return redirect('/admin/publication');
     }
 
     /**
@@ -65,7 +66,7 @@ class PublicationController extends Controller
      */
     public function show(Publication $publication)
     {
-        return view('Publications.show', compact('publication'));
+        return view('admin.posts.show', compact('publication'));
     }
 
     /**
@@ -76,7 +77,7 @@ class PublicationController extends Controller
      */
     public function edit(Publication $publication)
     {
-        return view('Publications.edit', compact('publication'));
+        return view('admin.posts.edit', compact('publication'));
     }
 
     /**
@@ -106,7 +107,7 @@ class PublicationController extends Controller
         $publication->save();
 
 
-        return redirect('/publication');
+        return redirect('/admin/publication');
     }
 
     /**
@@ -118,7 +119,7 @@ class PublicationController extends Controller
     public function destroy(Publication $publication)
     {
         $publication->delete();
-        return redirect('publication');
+        return redirect('/admin/publication');
     }
 
 }
